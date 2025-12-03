@@ -1,5 +1,5 @@
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { db, auth } from './firebase'; // Import from the file above
+import { db, auth } from './firebase'; // Standard import
 
 const DEFAULT_SECTIONS = [
     { id: 'contact', type: 'contact', title: 'Contact', visible: true },
@@ -29,9 +29,7 @@ const BASE_EPK_DATA = {
 };
 
 export async function setupUserEPK(uid, displayName, email) {
-    if (!db) return null; // Safety check if DB failed to load
-    
-    const docRef = doc(db, "bands", uid);
+    const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {

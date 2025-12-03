@@ -4,7 +4,7 @@ import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDplncGoDxqyYLAmTT_6OgVDY7Ef1ZxMas", 
+  apiKey: "AIzaSyDplncGoDxqyYLaMTT_6OgVDY7Ef1ZxMas", 
   authDomain: "playback-app-520ee.firebaseapp.com",
   projectId: "playback-app-520ee",
   storageBucket: "playback-app-520ee.firebasestorage.app",
