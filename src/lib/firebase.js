@@ -3,6 +3,9 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
+// ------------------------------------------------------------------
+// REPLACE THESE VALUES WITH YOUR REAL KEYS FROM FIREBASE CONSOLE
+// ------------------------------------------------------------------
 const firebaseConfig = {
   apiKey: "AIzaSyDplncGoDxqyYLaMTT_6OgVDY7Ef1ZxMas", 
   authDomain: "playback-app-520ee.firebaseapp.com",
@@ -12,7 +15,6 @@ const firebaseConfig = {
   appId: "1:500338792466:web:ceb7ffdb7a0c5cda3da0cb"
 };
 
-// Initialize variables
 let app;
 let db;
 let storage;

@@ -3,13 +3,13 @@ import {
   Settings, Edit3, Check, Save, Loader, Plus, Trash2, 
   Music, Calendar, Video, Upload, Link as LinkIcon, FileText, 
   Download, Home, BarChart2, Share2, Copy, Mail, User, Palette, Type, ChevronDown, Lock, QrCode, FileDown,
-  Facebook, Globe, Twitter, Instagram, Youtube, Disc, CloudLightning, Smartphone, Laptop, MousePointer, Layout, ArrowUp, ArrowDown, Eye, EyeOff
+  Facebook, Globe, Twitter, Instagram, Youtube, Disc, CloudLightning, Smartphone, Laptop, MousePointer, Layout, ArrowUp, ArrowDown, Eye, EyeOff, Rewind
 } from 'lucide-react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db, storage } from '../lib/firebase'; // Standard import (No .js)
-import { setupUserEPK } from '../lib/userUtils';     // Standard import (No .js)
+import { auth, db, storage } from '../lib/firebase.js'; // Explicit .js extension
+import { setupUserEPK } from '../lib/userUtils.js';     // Explicit .js extension
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
@@ -55,13 +55,7 @@ export default function Dashboard() {
   const fontMenuRef = useRef(null);
 
   useEffect(() => {
-    // Check if auth exists to avoid crash
-    if (!auth) {
-        console.error("Auth not initialized");
-        setLoading(false);
-        return;
-    }
-
+    if (!auth) return;
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setLoading(true);
       
@@ -97,7 +91,7 @@ export default function Dashboard() {
     if (!user || !data) return;
     setSaving(true);
     try {
-      const docRef = doc(db, "users", user.uid);
+      const docRef = doc(db, "bands", user.uid);
       await setDoc(docRef, data);
       showToast("✅ Saved to Cloud!");
     } catch (error) {
@@ -530,10 +524,10 @@ export default function Dashboard() {
                             <p className="text-sm text-orange-200 mb-2">Your EPK Link</p>
                             <div className="flex items-center gap-2 bg-black/40 p-2 rounded-lg border border-white/10">
                                 <code className="text-xs text-orange-300 truncate flex-1">playback.app/neon-echo</code>
-                                <button onClick={() => {navigator.clipboard.writeText('https://playback-app.vercel.app/neon-echo'); showToast("Link Copied!")}} className="p-1 hover:text-white text-gray-400"><Copy size={14}/></button>
+                                <button onClick={() => {navigator.clipboard.writeText(epkUrl); showToast("Link Copied!")}} className="p-1 hover:text-white text-gray-400"><Copy size={14}/></button>
                             </div>
                         </div>
-                        <button onClick={() => window.open('/neon-echo', '_blank')} className="mt-4 w-full py-2 bg-white text-black text-sm font-bold rounded-lg hover:bg-gray-200 flex items-center justify-center gap-2">
+                        <button onClick={() => window.open(epkUrl, '_blank')} className="mt-4 w-full py-2 bg-white text-black text-sm font-bold rounded-lg hover:bg-gray-200 flex items-center justify-center gap-2">
                             <Share2 size={16}/> View Live Page
                         </button>
                     </div>
